@@ -23,6 +23,11 @@
   </head>
 
   <body>
+    <nav>
+      <%= link_to "Meal Pack", root_path %>
+      <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+    </nav>
+
     <%= yield %>
   </body>
 </html>
