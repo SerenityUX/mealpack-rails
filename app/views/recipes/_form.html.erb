@@ -3,8 +3,52 @@
       <%= form.label :name %>
       <%= form.text_field :name %>
     </div>
-  
+
+    <div>
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div id="ingredients-fields">
+      <%= form.label :ingredients, "Ingredients" %>
+      <% (recipe.ingredients.presence || [""]).each_with_index do |ingredient, idx| %>
+        <div class="ingredient-field">
+          <%= text_field_tag "recipe[ingredients][]", ingredient, id: "recipe_ingredients_", class: "ingredient-input" %>
+          <button type="button" onclick="this.parentNode.remove()">Remove</button>
+        </div>
+      <% end %>
+    </div>
+    <button type="button" onclick="addIngredientField()">Add Ingredient</button>
+
+    <div id="directions-fields">
+      <%= form.label :directions, "Directions" %>
+      <% (recipe.directions.presence || [""]).each_with_index do |direction, idx| %>
+        <div class="direction-field">
+          <%= text_field_tag "recipe[directions][]", direction, id: "recipe_directions_", class: "direction-input" %>
+          <button type="button" onclick="this.parentNode.remove()">Remove</button>
+        </div>
+      <% end %>
+    </div>
+    <button type="button" onclick="addDirectionField()">Add Direction</button>
+
     <div>
       <%= form.submit %>
     </div>
 <% end %>
+
+<script>
+function addIngredientField() {
+  const container = document.getElementById('ingredients-fields');
+  const div = document.createElement('div');
+  div.className = 'ingredient-field';
+  div.innerHTML = `<input type="text" name="recipe[ingredients][]" class="ingredient-input" /> <button type="button" onclick="this.parentNode.remove()">Remove</button>`;
+  container.appendChild(div);
+}
+function addDirectionField() {
+  const container = document.getElementById('directions-fields');
+  const div = document.createElement('div');
+  div.className = 'direction-field';
+  div.innerHTML = `<input type="text" name="recipe[directions][]" class="direction-input" /> <button type="button" onclick="this.parentNode.remove()">Remove</button>`;
+  container.appendChild(div);
+}
+</script>

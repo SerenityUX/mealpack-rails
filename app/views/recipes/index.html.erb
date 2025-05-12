@@ -4,8 +4,31 @@
 
 <div id="recipes">
   <% @recipes.each do |recipe| %>
-    <div>
-        <%= link_to recipe.name, recipe %>
+    <div class="recipe-card">
+      <h2><%= link_to recipe.name, recipe %></h2>
+      <p class="description-preview"><%= truncate(recipe.description, length: 150) %></p>
+      <% if recipe.ingredients.present? %>
+        <strong>Ingredients:</strong>
+        <ul>
+          <% recipe.ingredients.first(3).each do |ingredient| %>
+            <li><%= ingredient %></li>
+          <% end %>
+          <% if recipe.ingredients.size > 3 %>
+            <li>...</li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if recipe.directions.present? %>
+        <strong>Directions:</strong>
+        <ol>
+          <% recipe.directions.first(2).each do |direction| %>
+            <li><%= truncate(direction, length: 60) %></li>
+          <% end %>
+          <% if recipe.directions.size > 2 %>
+            <li>...</li>
+          <% end %>
+        </ol>
+      <% end %>
     </div>
   <% end %>
 </div>

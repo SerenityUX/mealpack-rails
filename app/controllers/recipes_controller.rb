@@ -44,6 +44,9 @@ class RecipesController < ApplicationController
     end
 
     def recipe_params
-      params.expect(recipe: [ :name ])
+      p = params.require(:recipe).permit(:name, :description, ingredients: [], directions: [])
+      p[:ingredients] = (p[:ingredients] || []).reject(&:blank?)
+      p[:directions] = (p[:directions] || []).reject(&:blank?)
+      p
     end
 end

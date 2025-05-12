@@ -1,4 +1,24 @@
 <h1><%= @recipe.name %></h1>
+<p><%= @recipe.description %></p>
+
+<% if @recipe.ingredients.present? %>
+  <h2>Ingredients</h2>
+  <ul>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <li><%= ingredient %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @recipe.directions.present? %>
+  <h2>Directions</h2>
+  <ol>
+    <% @recipe.directions.each do |direction| %>
+      <li><%= direction %></li>
+    <% end %>
+  </ol>
+<% end %>
+
 <%= link_to "Back", recipes_path %>
 <%= link_to "Edit", edit_recipe_path(@recipe) %>
 <%= button_to "Delete", @recipe, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
