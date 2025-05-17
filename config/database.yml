@@ -26,14 +26,14 @@ test:
 production:
   primary:
     <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
+    url: <%= ENV["DATABASE_URL"] %>
     adapter: postgresql
     database: mealpack_rails_production
     encoding: unicode
     pool: 5
   cache:
     <<: *default
-    url: <%= ENV['DATABASE_URL'] %>&suffix=_cache
+    url: <%= "#{ENV['DATABASE_URL']}_cache" %>
     adapter: postgresql
     database: mealpack_rails_production_cache
     encoding: unicode
@@ -41,7 +41,7 @@ production:
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    url: <%= ENV['DATABASE_URL'] %>&suffix=_queue
+    url: <%= "#{ENV['DATABASE_URL']}_queue" %>
     adapter: postgresql
     database: mealpack_rails_production_queue
     encoding: unicode
@@ -49,7 +49,7 @@ production:
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    url: <%= ENV['DATABASE_URL'] %>&suffix=_cable
+    url: <%= "#{ENV['DATABASE_URL']}_cable" %>
     adapter: postgresql
     database: mealpack_rails_production_cable
     encoding: unicode
