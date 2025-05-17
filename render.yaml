@@ -4,6 +4,7 @@ services:
     env: ruby
     buildCommand: bundle install && bin/rails db:migrate && bin/rails assets:precompile
     startCommand: bin/rails server
+    plan: free
     envVars:
       - key: RAILS_MASTER_KEY
         sync: false
@@ -14,9 +15,14 @@ services:
       - key: RAILS_ENV
         value: production
       - key: RAILS_SERVE_STATIC_FILES
-        value: true
+        value: "true"
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: BUNDLE_WITHOUT
+        value: "development:test"
 
 databases:
   - name: mealpack-rails-db
+    plan: free
     databaseName: mealpack_rails_production
     ipAllowList: [] 
