@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: mealpack-rails
+    env: ruby
+    buildCommand: bundle install && bin/rails db:migrate && bin/rails assets:precompile
+    startCommand: bin/rails server
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mealpack-rails-db
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        value: true
+
+databases:
+  - name: mealpack-rails-db
+    databaseName: mealpack_rails_production
+    ipAllowList: [] 

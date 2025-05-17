@@ -26,16 +26,32 @@ test:
 production:
   primary:
     <<: *default
-    database: storage/production.sqlite3
+    url: <%= ENV['DATABASE_URL'] %>
+    adapter: postgresql
+    database: mealpack_rails_production
+    encoding: unicode
+    pool: 5
   cache:
     <<: *default
-    database: storage/production_cache.sqlite3
+    url: <%= ENV['DATABASE_URL'] %>&suffix=_cache
+    adapter: postgresql
+    database: mealpack_rails_production_cache
+    encoding: unicode
+    pool: 5
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    database: storage/production_queue.sqlite3
+    url: <%= ENV['DATABASE_URL'] %>&suffix=_queue
+    adapter: postgresql
+    database: mealpack_rails_production_queue
+    encoding: unicode
+    pool: 5
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    database: storage/production_cable.sqlite3
+    url: <%= ENV['DATABASE_URL'] %>&suffix=_cable
+    adapter: postgresql
+    database: mealpack_rails_production_cable
+    encoding: unicode
+    pool: 5
     migrations_paths: db/cable_migrate
